@@ -1,5 +1,5 @@
 const { Console } = require("@woowacourse/mission-utils");
-const { MESSAGE } = require("./constant/input");
+const { INPUT_MESSAGE } = require("./constant/input");
 const { validateBridgeSize } = require("./errorHandling");
 
 /**
@@ -9,8 +9,12 @@ const InputView = {
   /**
    * 다리의 길이를 입력받는다.
    */
+  readGameStart() {
+    Console.print(INPUT_MESSAGE.game_start);
+  },
+
   readBridgeSize() {
-    Console.readLine(MESSAGE.input_bridge, (userInput) => {
+    Console.readLine(INPUT_MESSAGE.bridge, (userInput) => {
       validateBridgeSize(userInput);
     });
   },

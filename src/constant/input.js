@@ -1,6 +1,6 @@
-const MESSAGE = {
+const INPUT_MESSAGE = {
   game_start: `다리 건너기 게임을 시작합니다.\n`,
-  input_bridge: `다리의 길이를 입력해주세요.\n`,
+  bridge: `다리의 길이를 입력해주세요.\n`,
 };
 
 const RANGE = {
@@ -9,6 +9,6 @@ const RANGE = {
 };
 
 module.exports = {
-  MESSAGE,
+  INPUT_MESSAGE,
   RANGE,
 };
