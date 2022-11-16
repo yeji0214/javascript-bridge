@@ -6,7 +6,10 @@ const checkInputBridgeRange = (userInput) =>
 const checkNotNumbersInInput = (userInput) =>
   [...userInput].every((v) => +v || v === "0");
 
+const isInputUpOrDown = (userInput) => userInput === "U" || userInput === "D";
+
 module.exports = {
   checkInputBridgeRange,
   checkNotNumbersInInput,
+  isInputUpOrDown,
 };

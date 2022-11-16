@@ -2,6 +2,7 @@ const { ERROR_MESSAGE } = require("./constant/error");
 const {
   checkInputBridgeRange,
   checkNotNumbersInInput,
+  isInputUpOrDown,
 } = require("./utils/validate");
 
 function validateBridgeSize(userInput) {
@@ -13,6 +14,13 @@ function validateBridgeSize(userInput) {
   }
 }
 
+function validateInputBridgeMoving(userInput) {
+  if (!isInputUpOrDown(userInput)) {
+    throw new Error(ERROR_MESSAGE.moving);
+  }
+}
+
 module.exports = {
   validateBridgeSize,
+  validateInputBridgeMoving,
 };
