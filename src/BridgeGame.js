@@ -24,6 +24,7 @@ class BridgeGame {
     if (direction === bridge) {
       movingLists[0].push(BRIDGE.right_direction);
       movingLists[1].push(BRIDGE.blank);
+      return;
     }
     movingLists[0].push(BRIDGE.wrong_direction);
     movingLists[1].push(BRIDGE.blank);
@@ -33,6 +34,7 @@ class BridgeGame {
     if (direction === bridge) {
       movingLists[1].push(BRIDGE.right_direction);
       movingLists[0].push(BRIDGE.blank);
+      return;
     }
     movingLists[1].push(BRIDGE.wrong_direction);
     movingLists[0].push(BRIDGE.blank);
