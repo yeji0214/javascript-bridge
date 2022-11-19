@@ -14,8 +14,8 @@ const RANGE = {
 };
 
 const MOVING = {
-  random_up: 1,
-  random_down: 0,
+  random_up: "1",
+  random_down: "0",
   up: "U",
   down: "D",
 };
