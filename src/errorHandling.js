@@ -1,3 +1,4 @@
+const { Console } = require("@woowacourse/mission-utils");
 const { ERROR_MESSAGE } = require("./constant/error");
 const {
   checkInputBridgeRange,
@@ -6,24 +7,32 @@ const {
   isInputReOrQuit,
 } = require("./utils/validate");
 
-function validateBridgeSize(userInput) {
-  if (!checkNotNumbersInInput(userInput)) {
-    throw new Error(ERROR_MESSAGE.notNumber);
-  }
-  if (!checkInputBridgeRange(userInput)) {
-    throw new Error(ERROR_MESSAGE.range);
-  }
-}
-
-function validateInputBridgeMoving(userInput) {
-  if (!isInputUpOrDown(userInput)) {
-    throw new Error(ERROR_MESSAGE.moving);
+function validateBridgeSize(input) {
+  try {
+    if (!checkNotNumbersInInput(input))
+      throw new Error(ERROR_MESSAGE.notNumber);
+    if (!checkInputBridgeRange(input)) throw new Error(ERROR_MESSAGE.range);
+  } catch (err) {
+    Console.print(err.message);
+    return true;
   }
 }
 
-function validateInputRestart(userInput) {
-  if (!isInputReOrQuit(userInput)) {
-    throw new Error(ERROR_MESSAGE.restart);
+function validateInputBridgeMoving(input) {
+  try {
+    if (!isInputUpOrDown(input)) throw new Error(ERROR_MESSAGE.moving);
+  } catch (err) {
+    Console.print(err.message);
+    return true;
+  }
+}
+
+function validateInputRestart(input) {
+  try {
+    if (!isInputReOrQuit(input)) throw new Error(ERROR_MESSAGE.restart);
+  } catch (err) {
+    Console.print(ERROR_MESSAGE.restart);
+    return true;
   }
 }
 
