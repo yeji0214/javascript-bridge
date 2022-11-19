@@ -45,4 +45,8 @@ U
 
   - [x] 게임을 재시작할 경우, 시도 횟수와 기존 moveLists를 초기화한다.
 
+    - [ ] 기존 moveLists를 초기화 하도록 BridgeGame에 retry 함수에 기능을 추가한다.
+
   - [x] 게임을 종료할 경우, 시도 횟수와 함께 실패했다는 메세지를 출력한다.
+
+    - [ ] 메세지 출력을 할 수 있도록 OutputView에 printResult에 기능을 추가한다.
