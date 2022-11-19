@@ -31,7 +31,7 @@ function validateInputRestart(input) {
   try {
     if (!isInputReOrQuit(input)) throw new Error(ERROR_MESSAGE.restart);
   } catch (err) {
-    Console.print(ERROR_MESSAGE.restart);
+    Console.print(err.message);
     return true;
   }
 }
