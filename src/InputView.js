@@ -10,6 +10,7 @@ const {
 } = require("./errorHandling");
 const { determineGameRestart } = require("./utils/validate");
 const OutputView = require("./OutputView");
+const { restartCommand, moveDirection } = require("./utils/subInput");
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -24,7 +25,7 @@ const InputView = {
    */
   readBridgeSize() {
     Console.readLine(INPUT_MESSAGE.bridge, (bridgeSize) => {
-      validateBridgeSize(bridgeSize);
+      if (validateBridgeSize(bridgeSize)) return this.readBridgeSize();
       const bridge = BridgeMaker.makeBridge(
         bridgeSize,
         BridgeRandomNumberGenerator.generate
@@ -40,19 +41,23 @@ const InputView = {
    */
   readMoving(bridge, movingLists, countOfGameAttempts) {
     Console.readLine(INPUT_MESSAGE.moving, (userInput) => {
-      validateInputBridgeMoving(userInput);
-      const bridgeGame = new BridgeGame();
-      const moveDirection = bridgeGame.move(userInput, bridge, movingLists);
-      OutputView.printMap(moveDirection);
-      if (determineGameRestart(moveDirection))
+      if (validateInputBridgeMoving(userInput)) {
+        return this.readMoving(bridge, movingLists, countOfGameAttempts);
+      }
+      const [result, checkSuccess] = moveDirection(
+        userInput,
+        bridge,
+        movingLists
+      );
+      if (determineGameRestart(result))
         return this.readGameCommand(bridge, movingLists, countOfGameAttempts);
-      if (moveDirection[0].length === bridge.length)
+      if (checkSuccess === bridge.length)
         return OutputView.printResult(
           RESULT.success,
           movingLists,
           countOfGameAttempts
         );
-      return this.readMoving(bridge, moveDirection, countOfGameAttempts);
+      return this.readMoving(bridge, result, countOfGameAttempts);
     });
   },
 
@@ -61,12 +66,12 @@ const InputView = {
    */
   readGameCommand(bridge, movingLists, countOfGameAttempts) {
     Console.readLine(INPUT_MESSAGE.restart, (isRestart) => {
-      validateInputRestart(isRestart);
+      if (validateInputRestart(isRestart)) {
+        this.readGameCommand(bridge, movingLists, countOfGameAttempts);
+      }
       if (isRestart === COMMAND.restart) {
-        countOfGameAttempts += 1;
-        const bridgeGame = new BridgeGame();
-        const resetMoveLists = bridgeGame.retry(movingLists);
-        return this.readMoving(bridge, resetMoveLists, countOfGameAttempts);
+        const [reset, count] = restartCommand(movingLists, countOfGameAttempts);
+        return this.readMoving(bridge, reset, count);
       }
       if (isRestart === COMMAND.end) {
         OutputView.printResult(RESULT.fail, movingLists, countOfGameAttempts);
