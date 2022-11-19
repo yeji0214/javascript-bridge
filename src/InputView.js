@@ -2,7 +2,7 @@ const { Console } = require("@woowacourse/mission-utils");
 const BridgeGame = require("./BridgeGame");
 const BridgeMaker = require("./BridgeMaker");
 const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator");
-const { INPUT_MESSAGE } = require("./constant/input");
+const { INPUT_MESSAGE, COMMAND, RESULT } = require("./constant/input");
 const {
   validateBridgeSize,
   validateInputBridgeMoving,
@@ -44,8 +44,8 @@ const InputView = {
       const bridgeGame = new BridgeGame();
       const moveDirection = bridgeGame.move(userInput, bridge, movingLists);
       OutputView.printMap(moveDirection);
-      determineGameRestart(moveDirection) &&
-        this.readGameCommand(bridge, movingLists, countOfGameAttempts);
+      if (determineGameRestart(moveDirection))
+        return this.readGameCommand(bridge, movingLists, countOfGameAttempts);
     });
   },
 
@@ -55,6 +55,12 @@ const InputView = {
   readGameCommand(bridge, movingLists, countOfGameAttempts) {
     Console.readLine(INPUT_MESSAGE.restart, (isRestart) => {
       validateInputRestart(isRestart);
+      if (isRestart === COMMAND.restart) {
+        countOfGameAttempts += 1;
+      }
+      if (isRestart === COMMAND.end) {
+        OutputView.printResult(RESULT.fail, movingLists, countOfGameAttempts);
+      }
     });
   },
 };
