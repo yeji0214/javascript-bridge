@@ -1,5 +1,4 @@
 const { Console } = require("@woowacourse/mission-utils");
-const BridgeGame = require("./BridgeGame");
 const BridgeMaker = require("./BridgeMaker");
 const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator");
 const { INPUT_MESSAGE, COMMAND, RESULT } = require("./constant/input");
@@ -40,12 +39,12 @@ const InputView = {
    * 사용자가 이동할 칸을 입력받는다.
    */
   readMoving(bridge, movingLists, countOfGameAttempts) {
-    Console.readLine(INPUT_MESSAGE.moving, (userInput) => {
-      if (validateInputBridgeMoving(userInput)) {
+    Console.readLine(INPUT_MESSAGE.moving, (direction) => {
+      if (validateInputBridgeMoving(direction)) {
         return this.readMoving(bridge, movingLists, countOfGameAttempts);
       }
       const [result, checkSuccess] = moveDirection(
-        userInput,
+        direction,
         bridge,
         movingLists
       );
