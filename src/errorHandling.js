@@ -3,6 +3,7 @@ const {
   checkInputBridgeRange,
   checkNotNumbersInInput,
   isInputUpOrDown,
+  isInputReOrQuit,
 } = require("./utils/validate");
 
 function validateBridgeSize(userInput) {
@@ -20,7 +21,14 @@ function validateInputBridgeMoving(userInput) {
   }
 }
 
+function validateInputRestart(userInput) {
+  if (!isInputReOrQuit(userInput)) {
+    throw new Error(ERROR_MESSAGE.restart);
+  }
+}
+
 module.exports = {
   validateBridgeSize,
   validateInputBridgeMoving,
+  validateInputRestart,
 };

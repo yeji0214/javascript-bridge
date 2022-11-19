@@ -8,6 +8,8 @@ const checkNotNumbersInInput = (userInput) =>
 
 const isInputUpOrDown = (userInput) => userInput === "U" || userInput === "D";
 
+const isInputReOrQuit = (userInput) => userInput === "R" || userInput === "Q";
+
 const determineGameRestart = (moveLists) => {
   const [upList, downList] = moveLists;
   return (
@@ -20,5 +22,6 @@ module.exports = {
   checkInputBridgeRange,
   checkNotNumbersInInput,
   isInputUpOrDown,
+  isInputReOrQuit,
   determineGameRestart,
 };
