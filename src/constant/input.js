@@ -14,26 +14,26 @@ const RANGE = {
 };
 
 const MOVING = {
-  random_up: "1",
-  random_down: "0",
-  up: "U",
-  down: "D",
+  random_up: '1',
+  random_down: '0',
+  up: 'U',
+  down: 'D',
 };
 
 const BRIDGE = {
-  right_direction: "O",
-  wrong_direction: "X",
-  blank: " ",
+  right_direction: 'O',
+  wrong_direction: 'X',
+  blank: ' ',
 };
 
 const COMMAND = {
-  restart: "R",
-  end: "Q",
+  restart: 'R',
+  end: 'Q',
 };
 
 const RESULT = {
-  success: "성공",
-  fail: "실패",
+  success: '성공',
+  fail: '실패',
 };
 
 module.exports = {

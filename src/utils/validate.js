@@ -1,14 +1,14 @@
-const { RANGE, BRIDGE } = require("../constant/input");
+const { RANGE, BRIDGE } = require('../constant/input');
 
 const checkInputBridgeRange = (userInput) =>
   +userInput >= RANGE.min && +userInput <= RANGE.max;
 
 const checkNotNumbersInInput = (userInput) =>
-  [...userInput].every((v) => +v || v === "0");
+  [...userInput].every((v) => +v || v === '0');
 
-const isInputUpOrDown = (userInput) => userInput === "U" || userInput === "D";
+const isInputUpOrDown = (userInput) => userInput === 'U' || userInput === 'D';
 
-const isInputReOrQuit = (userInput) => userInput === "R" || userInput === "Q";
+const isInputReOrQuit = (userInput) => userInput === 'R' || userInput === 'Q';
 
 const determineGameRestart = (moveLists) => {
   const [upList, downList] = moveLists;

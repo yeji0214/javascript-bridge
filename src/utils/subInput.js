@@ -1,5 +1,5 @@
-const BridgeGame = require("../BridgeGame");
-const OutputView = require("../OutputView");
+const BridgeGame = require('../BridgeGame');
+const OutputView = require('../OutputView');
 
 function restartCommand(movingLists, countOfGameAttempts) {
   countOfGameAttempts += 1;

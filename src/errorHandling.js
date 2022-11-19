@@ -1,11 +1,11 @@
-const { Console } = require("@woowacourse/mission-utils");
-const { ERROR_MESSAGE } = require("./constant/error");
+const { Console } = require('@woowacourse/mission-utils');
+const { ERROR_MESSAGE } = require('./constant/error');
 const {
   checkInputBridgeRange,
   checkNotNumbersInInput,
   isInputUpOrDown,
   isInputReOrQuit,
-} = require("./utils/validate");
+} = require('./utils/validate');
 
 function validateBridgeSize(input) {
   try {

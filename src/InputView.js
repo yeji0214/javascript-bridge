@@ -1,15 +1,15 @@
-const { Console } = require("@woowacourse/mission-utils");
-const BridgeMaker = require("./BridgeMaker");
-const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator");
-const { INPUT_MESSAGE, COMMAND, RESULT } = require("./constant/input");
+const { Console } = require('@woowacourse/mission-utils');
+const BridgeMaker = require('./BridgeMaker');
+const BridgeRandomNumberGenerator = require('./BridgeRandomNumberGenerator');
+const { INPUT_MESSAGE, COMMAND, RESULT } = require('./constant/input');
 const {
   validateBridgeSize,
   validateInputBridgeMoving,
   validateInputRestart,
-} = require("./errorHandling");
-const { determineGameRestart } = require("./utils/validate");
-const OutputView = require("./OutputView");
-const { restartCommand, moveDirection } = require("./utils/subInput");
+} = require('./errorHandling');
+const { determineGameRestart } = require('./utils/validate');
+const OutputView = require('./OutputView');
+const { restartCommand, moveDirection } = require('./utils/subInput');
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
