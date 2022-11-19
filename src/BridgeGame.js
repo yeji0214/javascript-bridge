@@ -1,4 +1,4 @@
-const { MOVING } = require("./constant/input");
+const { MOVING, BRIDGE } = require("./constant/input");
 const OutputView = require("./OutputView");
 
 /**
@@ -22,20 +22,20 @@ class BridgeGame {
 
   upMove(direction, bridge, movingLists) {
     if (direction === bridge) {
-      movingLists[0].push("O");
-      movingLists[1].push(" ");
+      movingLists[0].push(BRIDGE.right_direction);
+      movingLists[1].push(BRIDGE.blank);
     }
-    movingLists[0].push("X");
-    movingLists[1].push(" ");
+    movingLists[0].push(BRIDGE.wrong_direction);
+    movingLists[1].push(BRIDGE.blank);
   }
 
   downMove(direction, bridge, movingLists) {
     if (direction === bridge) {
-      movingLists[1].push("O");
-      movingLists[0].push(" ");
+      movingLists[1].push(BRIDGE.right_direction);
+      movingLists[0].push(BRIDGE.blank);
     }
-    movingLists[1].push("X");
-    movingLists[0].push(" ");
+    movingLists[1].push(BRIDGE.wrong_direction);
+    movingLists[0].push(BRIDGE.blank);
   }
 
   /**

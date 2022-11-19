@@ -9,7 +9,22 @@ const RANGE = {
   max: 20,
 };
 
+const MOVING = {
+  random_up: 1,
+  random_down: 0,
+  up: "U",
+  down: "D",
+};
+
+const BRIDGE = {
+  right_direction: "O",
+  wrong_direction: "X",
+  blank: " ",
+};
+
 module.exports = {
   INPUT_MESSAGE,
   RANGE,
+  MOVING,
+  BRIDGE,
 };
