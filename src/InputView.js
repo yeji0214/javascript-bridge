@@ -1,9 +1,12 @@
 const { Console } = require("@woowacourse/mission-utils");
+const BridgeMaker = require("./BridgeMaker");
+const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator");
 const { INPUT_MESSAGE } = require("./constant/input");
 const {
   validateBridgeSize,
   validateInputBridgeMoving,
 } = require("./errorHandling");
+const OutputView = require("./OutputView");
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -17,18 +20,24 @@ const InputView = {
   },
 
   readBridgeSize() {
-    Console.readLine(INPUT_MESSAGE.bridge, (userInput) => {
-      validateBridgeSize(userInput);
-      this.readMoving();
+    Console.readLine(INPUT_MESSAGE.bridge, (bridgeSize) => {
+      validateBridgeSize(bridgeSize);
+      const bridge = BridgeMaker.makeBridge(
+        bridgeSize,
+        BridgeRandomNumberGenerator.generate
+      );
+      this.readMoving(bridge);
     });
   },
 
   /**
    * 사용자가 이동할 칸을 입력받는다.
    */
-  readMoving() {
+  readMoving(bridge) {
     Console.readLine(INPUT_MESSAGE.moving, (userInput) => {
       validateInputBridgeMoving(userInput);
+      OutputView.printMap(bridge, userInput);
+      Console.close();
     });
   },
 
