@@ -41,6 +41,7 @@ const InputView = {
       validateInputBridgeMoving(userInput);
       const bridgeGame = new BridgeGame();
       const moveDirection = bridgeGame.move(userInput, bridge, movingLists);
+      OutputView.printMap(moveDirection);
     });
   },
 

@@ -1,5 +1,4 @@
 const { MOVING, BRIDGE } = require("./constant/input");
-const OutputView = require("./OutputView");
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
@@ -16,7 +15,6 @@ class BridgeGame {
       this.upMove(direction, bridge[index], movingLists);
     direction === MOVING.down &&
       this.downMove(direction, bridge[index], movingLists);
-    OutputView.printMap(movingLists);
     return movingLists;
   }
 
