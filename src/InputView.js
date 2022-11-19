@@ -46,6 +46,13 @@ const InputView = {
       OutputView.printMap(moveDirection);
       if (determineGameRestart(moveDirection))
         return this.readGameCommand(bridge, movingLists, countOfGameAttempts);
+      if (moveDirection[0].length === bridge.length)
+        return OutputView.printResult(
+          RESULT.success,
+          movingLists,
+          countOfGameAttempts
+        );
+      return this.readMoving(bridge, moveDirection, countOfGameAttempts);
     });
   },
 
@@ -57,6 +64,9 @@ const InputView = {
       validateInputRestart(isRestart);
       if (isRestart === COMMAND.restart) {
         countOfGameAttempts += 1;
+        const bridgeGame = new BridgeGame();
+        const resetMoveLists = bridgeGame.retry(movingLists);
+        return this.readMoving(bridge, resetMoveLists, countOfGameAttempts);
       }
       if (isRestart === COMMAND.end) {
         OutputView.printResult(RESULT.fail, movingLists, countOfGameAttempts);
