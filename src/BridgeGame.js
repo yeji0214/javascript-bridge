@@ -1,3 +1,6 @@
+const { MOVING } = require("./constant/input");
+const OutputView = require("./OutputView");
+
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
@@ -7,7 +10,33 @@ class BridgeGame {
    * <p>
    * 이동을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  move() {}
+  move(direction, bridge, movingLists) {
+    const index = movingLists[0].length;
+    direction === MOVING.up &&
+      this.upMove(direction, bridge[index], movingLists);
+    direction === MOVING.down &&
+      this.downMove(direction, bridge[index], movingLists);
+    OutputView.printMap(movingLists);
+    return movingLists;
+  }
+
+  upMove(direction, bridge, movingLists) {
+    if (direction === bridge) {
+      movingLists[0].push("O");
+      movingLists[1].push(" ");
+    }
+    movingLists[0].push("X");
+    movingLists[1].push(" ");
+  }
+
+  downMove(direction, bridge, movingLists) {
+    if (direction === bridge) {
+      movingLists[1].push("O");
+      movingLists[0].push(" ");
+    }
+    movingLists[1].push("X");
+    movingLists[0].push(" ");
+  }
 
   /**
    * 사용자가 게임을 다시 시도할 때 사용하는 메서드
