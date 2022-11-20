@@ -18,6 +18,8 @@ const MOVING = {
   random_down: '0',
   up: 'U',
   down: 'D',
+  initialLists: [[], []],
+  attempts: 1,
 };
 
 const BRIDGE = {

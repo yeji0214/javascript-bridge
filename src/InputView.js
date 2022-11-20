@@ -1,7 +1,7 @@
 const { Console } = require('@woowacourse/mission-utils');
 const BridgeMaker = require('./BridgeMaker');
 const BridgeRandomNumberGenerator = require('./BridgeRandomNumberGenerator');
-const { INPUT_MESSAGE, COMMAND, RESULT } = require('./constant/input');
+const { INPUT_MESSAGE, COMMAND, RESULT, MOVING } = require('./constant/input');
 const {
   validateBridgeSize,
   validateInputBridgeMoving,
@@ -9,7 +9,7 @@ const {
 } = require('./errorHandling');
 const { determineGameRestart } = require('./utils/validate');
 const OutputView = require('./OutputView');
-const { restartCommand, moveDirection } = require('./utils/subInput');
+const BridgeGame = require('./BridgeGame');
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -29,51 +29,47 @@ const InputView = {
         bridgeSize,
         BridgeRandomNumberGenerator.generate
       );
-      const countOfGameAttempts = 1;
-      const movingLists = [[], []];
-      this.readMoving(bridge, movingLists, countOfGameAttempts);
+      const bridgeGame = new BridgeGame(
+        bridge,
+        MOVING.initialLists,
+        MOVING.attempts
+      );
+      this.readMoving(bridgeGame, bridge);
     });
   },
 
   /**
    * 사용자가 이동할 칸을 입력받는다.
    */
-  readMoving(bridge, movingLists, countOfGameAttempts) {
+  readMoving(bridgeGame, brigeSize) {
     Console.readLine(INPUT_MESSAGE.moving, (direction) => {
       if (validateInputBridgeMoving(direction)) {
-        return this.readMoving(bridge, movingLists, countOfGameAttempts);
+        return this.readMoving(bridgeGame);
       }
-      const [result, checkSuccess] = moveDirection(
-        direction,
-        bridge,
-        movingLists
-      );
-      if (determineGameRestart(result))
-        return this.readGameCommand(bridge, movingLists, countOfGameAttempts);
-      if (checkSuccess === bridge.length)
-        return OutputView.printResult(
-          RESULT.success,
-          movingLists,
-          countOfGameAttempts
-        );
-      return this.readMoving(bridge, result, countOfGameAttempts);
+      const movingLists = bridgeGame.move(direction);
+      OutputView.printMap(movingLists);
+      if (determineGameRestart(movingLists))
+        return this.readGameCommand(bridgeGame, brigeSize);
+      if (movingLists[0].length === brigeSize.length)
+        return OutputView.printResult(RESULT.success, bridgeGame);
+      return this.readMoving(bridgeGame, brigeSize);
     });
   },
 
   /**
    * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
    */
-  readGameCommand(bridge, movingLists, countOfGameAttempts) {
+  readGameCommand(bridgeGame, brigeSize) {
     Console.readLine(INPUT_MESSAGE.restart, (isRestart) => {
       if (validateInputRestart(isRestart)) {
-        this.readGameCommand(bridge, movingLists, countOfGameAttempts);
+        this.readGameCommand(bridgeGame);
       }
       if (isRestart === COMMAND.restart) {
-        const [reset, count] = restartCommand(movingLists, countOfGameAttempts);
-        return this.readMoving(bridge, reset, count);
+        bridgeGame.retry();
+        return this.readMoving(bridgeGame, brigeSize);
       }
       if (isRestart === COMMAND.end) {
-        OutputView.printResult(RESULT.fail, movingLists, countOfGameAttempts);
+        OutputView.printResult(RESULT.fail, bridgeGame);
       }
     });
   },
