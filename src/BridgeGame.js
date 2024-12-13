@@ -18,13 +18,22 @@ export class BridgeGame {
 
   async move() {
     let playerDirection = '';
+    let retry = ''
 
     for (let i = 0; i < this.#bridgeLength; i++) {
       playerDirection = await InputView.readMoving();
       if (playerDirection === this.#bridgeDirections[i]) OutputView.printMap(i, this.#bridgeDirections, playerDirection, true);
-      else OutputView.printMap(i, this.#bridgeDirections, playerDirection, false);
+      else {
+        OutputView.printMap(i, this.#bridgeDirections, playerDirection, false);
+        retry = await InputView.readGameCommand();
+        break;
+      }
     }
+    
+    if (retry === 'R') this.retry();
   }
 
-  retry() { }
+  async retry() { 
+    await this.move();
+  }
 }

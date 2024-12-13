@@ -27,9 +27,8 @@ export const OutputView = {
       this.printFinalRoundDown(isMatch, upResult, downResult)
     }
 
-    Console.print(`정답: ${bridgeDirections}`);
-    Console.print(upResult);
-    Console.print(downResult);
+    Console.print(`[ ${upResult.join( ' | ')} ]\n`);
+    Console.print(`[ ${downResult.join( ' | ')} ]\n`);
   },
 
   printFinalRoundUp(isMatch, upResult, downResult) {

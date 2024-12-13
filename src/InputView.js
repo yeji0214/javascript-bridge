@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import { MESSAGES } from './constants.js';
 import BridgeLength from './BridgeLength.js';
 import MoveDirection from './MoveDirection.js';
+import GameCommand from './GameCommand.js';
 
 export const InputView = {
   async readBridgeSize() {
@@ -28,5 +29,15 @@ export const InputView = {
     }
   },
 
-  readGameCommand() { },
+  async readGameCommand() { 
+    while (true) {
+      const retry = await Console.readLineAsync(MESSAGES.INFO.RETRY_PROMPT);
+
+      try {
+        return new GameCommand(retry).getRetry();
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  },
 };
