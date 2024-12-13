@@ -52,12 +52,13 @@ export const OutputView = {
     }
   },
 
-  printResult(upResult, downResult, isSuccess) {
+  printResult(upResult, downResult, isSuccess, tryCount) {
     Console.print(MESSAGES.INFO.GAME_RESULT_TITLE);
     Console.print(`[ ${upResult.join( ' | ')} ]\n`);
     Console.print(`[ ${downResult.join( ' | ')} ]\n`);
 
     if (isSuccess) Console.print(MESSAGES.INFO.GAME_SUCCESS);
     else Console.print(MESSAGES.INFO.GAME_FAIL);
+    Console.print(`${MESSAGES.INFO.TOTAL_TRY_COUNT_TITLE}${tryCount}`);
   },
 };

@@ -7,6 +7,7 @@ export const MESSAGES = {
         GAME_RESULT_TITLE: '최종 게임 결과\n',
         GAME_SUCCESS: '\n게임 성공 여부: 성공\n',
         GAME_FAIL: '\n게임 성공 여부: 실패\n',
+        TOTAL_TRY_COUNT_TITLE: '총 시도한 횟수: ',
     },
     ERROR: {
         BRIDGE_LENGTH_NOT_INTEGER: '[ERROR] 다리 길이로는 정수를 입력해야 합니다.\n',

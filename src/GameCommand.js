@@ -1,3 +1,5 @@
+import { MESSAGES } from "./constants.js";
+
 class GameCommand {
     #retry;
 

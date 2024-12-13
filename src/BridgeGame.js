@@ -9,6 +9,7 @@ export class BridgeGame {
   #bridgeDirections = [];
   #upResult = [];
   #downResult = [];
+  #tryCount = 0;
 
   async start() {
     OutputView.printGameStart();
@@ -20,6 +21,7 @@ export class BridgeGame {
 
   async move() {
     let playerDirection = '', retry = '', i = 0;
+    this.#tryCount += 1;
 
     for (i = 0; i < this.#bridgeLength; i++) {
       this.#upResult = [], this.#downResult = [];
@@ -34,8 +36,8 @@ export class BridgeGame {
     
     if (retry === 'R') this.retry();
     else {
-      if (i === this.#bridgeLength) OutputView.printResult(this.#upResult, this.#downResult, true);
-      else OutputView.printResult(this.#upResult, this.#downResult, false);
+      if (i === this.#bridgeLength) OutputView.printResult(this.#upResult, this.#downResult, true, this.#tryCount);
+      else OutputView.printResult(this.#upResult, this.#downResult, false, this.#tryCount);
     } 
   }
 
