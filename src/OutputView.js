@@ -7,7 +7,9 @@ export const OutputView = {
     Console.print(MESSAGES.INFO.START_GAME_TITLE);
   },
 
-  printMap(round, bridgeDirections, playerDirection, isMatch, bridgeGame) {
+  printMap(round, isMatch, bridgeGame) {
+    const bridgeDirections = bridgeGame.getBridgeDirections();
+    const playerDirection = bridgeGame.getPlayerDirection();
     if (round > 0) {
       for (let i = 0; i < round; i++) {
         if (bridgeDirections[i] === 'U') bridgeGame.setUpResult('O');
@@ -52,7 +54,8 @@ export const OutputView = {
     }
   },
 
-  printResult(upResult, downResult, isSuccess, tryCount) {
+  printResult(bridgeGame, isSuccess) {
+    const upResult = bridgeGame.getUpResult(), downResult = bridgeGame.getDownResult(), tryCount = bridgeGame.getTryCount();
     Console.print(MESSAGES.INFO.GAME_RESULT_TITLE);
     Console.print(`[ ${upResult.join( ' | ')} ]\n`);
     Console.print(`[ ${downResult.join( ' | ')} ]\n`);

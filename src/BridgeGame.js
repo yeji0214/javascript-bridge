@@ -2,7 +2,6 @@ import { BridgeMaker } from "./BridgeMaker.js";
 import BridgeRandomNumberGenerator from "./BridgeRandomNumberGenerator.js";
 import { InputView } from "./InputView.js";
 import { OutputView } from "./OutputView.js";
-import { Console } from '@woowacourse/mission-utils';
 
 export class BridgeGame {
   #bridgeLength;
@@ -10,6 +9,7 @@ export class BridgeGame {
   #upResult = [];
   #downResult = [];
   #tryCount = 0;
+  #playerDirection = '';
 
   async start() {
     OutputView.printGameStart();
@@ -20,15 +20,15 @@ export class BridgeGame {
   }
 
   async move() {
-    let playerDirection = '', retry = '', i = 0;
+    let retry = '', i = 0;
     this.#tryCount += 1;
 
     for (i = 0; i < this.#bridgeLength; i++) {
       this.#upResult = [], this.#downResult = [];
-      playerDirection = await InputView.readMoving();
-      if (playerDirection === this.#bridgeDirections[i]) OutputView.printMap(i, this.#bridgeDirections, playerDirection, true, this);
+      this.#playerDirection = await InputView.readMoving();
+      if (this.#playerDirection === this.#bridgeDirections[i]) OutputView.printMap(i, true, this);
       else {
-        OutputView.printMap(i, this.#bridgeDirections, playerDirection, false, this);
+        OutputView.printMap(i, false, this);
         retry = await InputView.readGameCommand();
         break;
       }
@@ -36,8 +36,8 @@ export class BridgeGame {
     
     if (retry === 'R') this.retry();
     else {
-      if (i === this.#bridgeLength) OutputView.printResult(this.#upResult, this.#downResult, true, this.#tryCount);
-      else OutputView.printResult(this.#upResult, this.#downResult, false, this.#tryCount);
+      if (i === this.#bridgeLength) OutputView.printResult(this, true);
+      else OutputView.printResult(this, false);
     } 
   }
 
@@ -51,6 +51,18 @@ export class BridgeGame {
 
   getDownResult() {
     return this.#downResult;
+  }
+
+  getBridgeDirections () {
+    return this.#bridgeDirections;
+  }
+
+  getPlayerDirection() {
+    return this.#playerDirection;
+  }
+
+  getTryCount() {
+    return this.#tryCount;
   }
 
   setUpResult(result) {
