@@ -1,0 +1,5 @@
+const OutputView = {
+    printMap() {},
+  
+    printResult() {},
+  };
