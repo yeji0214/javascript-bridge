@@ -1,8 +1,12 @@
 export const MESSAGES = {
     INFO: {
+        START_GAME_TITLE: '다리 건너기 게임을 시작합니다.\n\n',
         BRIDGE_LENGTH_PROMPT: '다리의 길이를 입력해주세요.\n',
         MOVE_PROMPT: '\n이동할 칸을 선택해주세요. (위: U, 아래: D)\n',
         RETRY_PROMPT: '\n게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)\n',
+        GAME_RESULT_TITLE: '최종 게임 결과\n',
+        GAME_SUCCESS: '\n게임 성공 여부: 성공\n',
+        GAME_FAIL: '\n게임 성공 여부: 실패\n',
     },
     ERROR: {
         BRIDGE_LENGTH_NOT_INTEGER: '[ERROR] 다리 길이로는 정수를 입력해야 합니다.\n',

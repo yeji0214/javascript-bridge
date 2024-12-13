@@ -1,57 +1,63 @@
 import { Console } from '@woowacourse/mission-utils';
+import { BridgeGame } from './BridgeGame.js';
+import { MESSAGES } from './constants.js';
 
 export const OutputView = {
   printGameStart() {
-    Console.print('다리 건너기 게임을 시작합니다.\n\n');
+    Console.print(MESSAGES.INFO.START_GAME_TITLE);
   },
 
-  printMap(round, bridgeDirections, playerDirection, isMatch) {
-    let upResult = [];
-    let downResult = [];
-
+  printMap(round, bridgeDirections, playerDirection, isMatch, bridgeGame) {
     if (round > 0) {
       for (let i = 0; i < round; i++) {
-        if (bridgeDirections[i] === 'U') upResult.push('O');
-        else upResult.push(' ');
+        if (bridgeDirections[i] === 'U') bridgeGame.setUpResult('O');
+        else bridgeGame.setUpResult(' ');
       }
       for (let i = 0; i < round; i++) {
-        if (bridgeDirections[i] === 'D') downResult.push('O');
-        else downResult.push(' ');
+        if (bridgeDirections[i] === 'D') bridgeGame.setDownResult('O');
+        else bridgeGame.setDownResult(' ');
       }
     }
 
     if (playerDirection === 'U') {
-      this.printFinalRoundUp(isMatch, upResult, downResult)
+      this.printFinalRoundUp(isMatch, bridgeGame)
     }
     else if (playerDirection === 'D') {
-      this.printFinalRoundDown(isMatch, upResult, downResult)
+      this.printFinalRoundDown(isMatch, bridgeGame)
     }
 
+    Console.print(`[ ${bridgeGame.getUpResult().join( ' | ')} ]\n`);
+    Console.print(`[ ${bridgeGame.getDownResult().join( ' | ')} ]\n`);
+  },
+
+  printFinalRoundUp(isMatch, bridgeGame) {
+    if (isMatch) {
+      bridgeGame.setUpResult('O');
+      bridgeGame.setDownResult(' ');
+    }
+    else {
+      bridgeGame.setUpResult('X');
+      bridgeGame.setDownResult(' ');
+    }
+  },
+
+  printFinalRoundDown(isMatch, bridgeGame) {
+    if (isMatch) {
+      bridgeGame.setUpResult(' ');
+      bridgeGame.setDownResult('O');
+    }
+    else {
+      bridgeGame.setUpResult(' ');
+      bridgeGame.setDownResult('X');
+    }
+  },
+
+  printResult(upResult, downResult, isSuccess) {
+    Console.print(MESSAGES.INFO.GAME_RESULT_TITLE);
     Console.print(`[ ${upResult.join( ' | ')} ]\n`);
     Console.print(`[ ${downResult.join( ' | ')} ]\n`);
-  },
 
-  printFinalRoundUp(isMatch, upResult, downResult) {
-    if (isMatch) {
-      upResult.push('O');
-      downResult.push(' ');
-    }
-    else {
-      upResult.push('X');
-      downResult.push(' ');
-    }
+    if (isSuccess) Console.print(MESSAGES.INFO.GAME_SUCCESS);
+    else Console.print(MESSAGES.INFO.GAME_FAIL);
   },
-
-  printFinalRoundDown(isMatch, upResult, downResult) {
-    if (isMatch) {
-      upResult.push(' ');
-      downResult.push('O');
-    }
-    else {
-      upResult.push(' ');
-      downResult.push('X');
-    }
-  },
-
-  printResult() { },
 };
