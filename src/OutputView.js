@@ -1,5 +1,4 @@
-import pkg from '@woowacourse/mission-utils';
-const { Console } = pkg;
+import { Console } from '@woowacourse/mission-utils';
 
 export const OutputView = {
     printGameStart() {
