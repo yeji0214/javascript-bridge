@@ -21,6 +21,8 @@ export class BridgeGame {
 
     for (let i = 0; i < this.#bridgeLength; i++) {
       playerDirection = await InputView.readMoving();
+      if (playerDirection === this.#bridgeDirections[i]) OutputView.printMap(i, this.#bridgeDirections, playerDirection, true);
+      else OutputView.printMap(i, this.#bridgeDirections, playerDirection, false);
     }
   }
 
