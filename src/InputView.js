@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
-// const { Console } = pkg;
 import { MESSAGES } from './constants.js';
 import BridgeLength from './BridgeLength.js';
+import MoveDirection from './MoveDirection.js';
 
 export const InputView = {
   async readBridgeSize() {
@@ -16,7 +16,17 @@ export const InputView = {
     }
   },
 
-  readMoving() { },
+  async readMoving() { 
+    while (true) {
+      const move = await Console.readLineAsync(MESSAGES.INFO.MOVE_PROMPT);
+
+      try {
+        return new MoveDirection(move).getDirection();
+      } catch (error) {
+        Console.print(error.message);
+      }
+    }
+  },
 
   readGameCommand() { },
 };

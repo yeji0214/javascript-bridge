@@ -12,10 +12,17 @@ export class BridgeGame {
     OutputView.printGameStart();
     this.#bridgeLength = await InputView.readBridgeSize();
     this.#bridgeDirections = BridgeMaker.makeBridge(this.#bridgeLength, BridgeRandomNumberGenerator);
-    Console.print(this.#bridgeDirections);
+    this.move();
+    
   }
 
-  move() { }
+  async move() {
+    let playerDirection = '';
+
+    for (let i = 0; i < this.#bridgeLength; i++) {
+      playerDirection = await InputView.readMoving();
+    }
+  }
 
   retry() { }
 }
